@@ -38,6 +38,24 @@ class _HomeState extends State<Home> {
   final dolarController = TextEditingController();
   final euroController = TextEditingController();
 
+  void getReal(String texto) {
+    double real = double.parse(texto);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
+  }
+
+  void getDolar(String texto) {
+    double dolar = double.parse(texto);
+    realController.text = (dolar * this.dolar).toStringAsFixed(2);
+    euroController.text = (dolar * this.dolar / euro).toStringAsFixed(2);
+  }
+
+  void getEuro(String texto) {
+    double euro = double.parse(texto);
+    realController.text = (euro * this.euro).toStringAsFixed(2);
+    dolarController.text = (euro * this.euro / dolar).toStringAsFixed(2);
+  }
+
   /*void _realChanged(String text) {
     print(text);
   }
@@ -113,11 +131,47 @@ class _HomeState extends State<Home> {
                         size: 150,
                         color: Colors.amber,
                       ),
-                      buildTextField("Reais", "R\$ ", realController),
+                      // buildTextField("Reais", "R\$ ", realController),
+                      TextField(
+                        onChanged: getReal,
+                        controller: realController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Reais",
+                          labelStyle: TextStyle(color: Colors.amber),
+                          border: OutlineInputBorder(),
+                          prefixText: "R\$ ",
+                        ),
+                        style: TextStyle(color: Colors.amber, fontSize: 25),
+                      ),
                       Divider(),
-                      buildTextField("Dólares", "US\$ ", dolarController),
+                      TextField(
+                        onChanged: getDolar,
+                        controller: dolarController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Dólares",
+                          labelStyle: TextStyle(color: Colors.amber),
+                          border: OutlineInputBorder(),
+                          prefixText: "US\$ ",
+                        ),
+                        style: TextStyle(color: Colors.amber, fontSize: 25),
+                      ),
+                      //buildTextField("Dólares", "US\$ ", dolarController),
                       Divider(),
-                      buildTextField("Euros", "€ ", euroController),
+                      //buildTextField("Euros", "€ ", euroController),
+                      TextField(
+                        onChanged: getEuro,
+                        controller: euroController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Euros",
+                          labelStyle: TextStyle(color: Colors.amber),
+                          border: OutlineInputBorder(),
+                          prefixText: "EUR ",
+                        ),
+                        style: TextStyle(color: Colors.amber, fontSize: 25),
+                      ),
                     ],
                   ),
                 );
@@ -134,7 +188,7 @@ Future<Map> getData() async {
   return json.decode(response.body);
 }
 
-Widget buildTextField(String label, String prefix, TextEditingController c) {
+/*Widget buildTextField(String label, String prefix, TextEditingController c) {
   return TextField(
     controller: c,
     keyboardType: TextInputType.number,
@@ -146,4 +200,4 @@ Widget buildTextField(String label, String prefix, TextEditingController c) {
     ),
     style: TextStyle(color: Colors.amber, fontSize: 25),
   );
-}
+}*/
